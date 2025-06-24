@@ -16,3 +16,15 @@ Next, we used these 40 features to:
 - Extra Trees Classifier
 
 We used hierarchical clustering to check how stable the clusters were by removing one patient at a time and reclustering the rest (patient dropout analysis). We then calculated how often each patient was classified as high-risk. Patients with very consistent results (almost always or almost never classified as high-risk) were considered stable.
+
+Enrichment analysis:
+Step 1: Group Phenotypes into Bins
+•	The 7 phenotypes were divided into 10 equal bins (0-10%, 10-20%, ..., 90-100%) based on their values.
+•	For each cluster, we counted how many patient samples fell into each bin.
+Step 2: Simulate Expected Distribution
+•	To determine what the distribution should look like by random chance, we shuffled the cluster labels 1,000 times and recalculated the bin counts each time.
+•	This gave us an average (mean) and variability (standard deviation) for the expected distribution.
+Step 3: Compare Observed vs. Expected
+•	We compared the actual (observed) distribution of cells in each bin to the simulated (expected) distribution.
+•	A Z-score was calculated for each bin to measure how much the observed count deviated from the expected random distribution. This Z-score tells us whether a phenotype is significantly over- or under-represented in a cluster compared to random chance.
+
