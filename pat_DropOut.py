@@ -30,7 +30,7 @@ df_labels = df_labels[['patient_code', 'risk']]
 df_labels = df_labels.loc[df_labels['risk'] != 'X']
 df_labels.drop_duplicates(subset = ['patient_code'], inplace=True)  
 
-df0 = pd.read_csv('similarities_3.csv') 
+df0 = pd.read_csv('similarities.csv') 
 
 Merged = pd.DataFrame()
 df = df0.loc[df0['features (n)'] == n_features]
