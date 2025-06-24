@@ -15,3 +15,4 @@ Next, we used these 40 features to:
 - Gaussian Naive Bayes
 - Extra Trees Classifier
 
+We used hierarchical clustering to check how stable the clusters were by removing one patient at a time and reclustering the rest (patient dropout analysis). We then calculated how often each patient was classified as high-risk. Patients with very consistent results (almost always or almost never classified as high-risk) were considered stable.
