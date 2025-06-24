@@ -24,10 +24,7 @@ def clean(x):
         return 1
     elif x == 'lo':
         return 0
-    elif x == 'm':
-        return 1
-    elif x == 'u':
-        return 0
+
 
 
 #########################################################
