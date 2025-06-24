@@ -17,7 +17,8 @@ Next, we used these 40 features to:
 
 We used hierarchical clustering to check how stable the clusters were by removing one patient at a time and reclustering the rest (patient dropout analysis). We then calculated how often each patient was classified as high-risk. Patients with very consistent results (almost always or almost never classified as high-risk) were considered stable.
 
-Enrichment analysis:
+**Enrichment analysis:**
+
 Step 1: Group Phenotypes into Bins.
 - The 7 phenotypes were divided into 10 equal bins (0-10%, 10-20%, ..., 90-100%) based on their values.
 - For each cluster, we counted how many patient samples fell into each bin.
