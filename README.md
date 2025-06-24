@@ -21,9 +21,11 @@ Enrichment analysis:
 Step 1: Group Phenotypes into Bins.
 - The 7 phenotypes were divided into 10 equal bins (0-10%, 10-20%, ..., 90-100%) based on their values.
 - For each cluster, we counted how many patient samples fell into each bin.
+  
 Step 2: Simulate Expected Distribution.
 - To determine what the distribution should look like by random chance, we shuffled the cluster labels 1,000 times and recalculated the bin counts each time.
 -	This gave us an average (mean) and variability (standard deviation) for the expected distribution.
+  
 Step 3: Compare Observed vs. Expected.
 -	We compared the actual (observed) distribution of cells in each bin to the simulated (expected) distribution.
 -	A Z-score was calculated for each bin to measure how much the observed count deviated from the expected random distribution. This Z-score tells us whether a phenotype is significantly over- or under-represented in a cluster compared to random chance.
