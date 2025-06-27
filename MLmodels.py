@@ -11,7 +11,6 @@ Created on Mon Apr  4 14:44:53 2022
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-from xgboost import XGBClassifier
 pd.options.mode.chained_assignment = None  # default='warn'
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 import warnings
@@ -27,19 +26,14 @@ def clean(x):
 
 
 
-#########################################################
 
 n_features = 40  
 label = 'risk'
 
-df_cells = pd.read_csv('C:/Users/sougl/Documents/mark_project/treatment/exp22/SVC_1/number_of_cells.csv')
-df_cells.drop('DMSO_none-treated_cells', axis = 'columns', inplace = True)
-df_labels = pd.read_csv('C:/Users/sougl/Documents/mark_project/treatment/exp22/SRI-coded anonymized3S DMSO samples clinical phenptypes for Glauber.tsv', sep='\t')
-df_labels = df_labels[['patient_code', 'risk', 'u_m_status']]
-df_labels = pd.merge(df_labels, df_cells, how='left', on='patient_code') 
+df_labels = pd.read_csv('labels.csv')
+df_labels = df_labels[['patient_code', 'risk']]
 df_labels = df_labels.loc[df_labels['risk'] != 'X']
 df_labels.drop_duplicates(subset = ['patient_code'], inplace=True)  
-df_labels.dropna(axis=0,  subset=['total_cells'], inplace=True)
 
 
 df_dropout = pd.read_csv('perc_dropout_n40.csv')
@@ -47,10 +41,10 @@ df_dropout.drop([label], axis = 'columns', inplace = True)
 df_dropout = df_dropout[['patient_code', '% high']]
 df_dropout.fillna(10, inplace = True) 
 
-df = pd.read_csv('similarities.csv')
+df = pd.read_csv('distances.csv')
 df = df.loc[df['features (n)'] == n_features]
-
-dfx = pd.pivot_table(df, values='similarity', index=['pat1'], columns=['pat2']).reset_index()
+#%%
+dfx = pd.pivot_table(df, values='distance', index=['pat1'], columns=['pat2']).reset_index()
 dfx.rename(columns = {'pat1': 'patient_code'}, inplace = True) 
 
 dfx = pd.merge(dfx, df_labels, how='inner', on='patient_code')
@@ -62,18 +56,15 @@ dfx[label] = dfx[label].apply(lambda x: clean(x))
 df3 = dfx.copy()
 
 y = df3[[label]].values
-df3.drop(['patient_code', label, 'u_m_status', 'total_cells', '% high'], axis = 'columns', inplace = True)
+df3.drop(['patient_code', label, '% high'], axis = 'columns', inplace = True)
 
 X = df3.values
-
+#%%
 
 from numpy import hstack
 from numpy import vstack
 from numpy import asarray
-from sklearn.datasets import make_blobs
 from sklearn.model_selection import KFold
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
